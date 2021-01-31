@@ -3,6 +3,7 @@ package com.oladipo.fairmoneytest.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.oladipo.fairmoneytest.model.Data
+import com.oladipo.fairmoneytest.model.Detail
 import com.oladipo.fairmoneytest.model.User
 
 @Entity
@@ -43,3 +44,20 @@ fun List<DatabaseUsers>.asDomainModel(): List<Data>{
         )
     }
 }
+
+//fun List<UserDetails>.asDomailModel():List<Detail>{
+//    return map {
+//        Detail(
+//            id = it.id,
+//            title = it.title,
+//            lastName = it.lastName,
+//            firstName = it.firstName,
+//            email = it.email,
+//            picture = it.picture,
+//            gender = it.gender,
+//            registerDate = it.registerDate,
+//            dateOfBirth = it.dateOfBirth,
+//            phone = it.phone
+//        )
+//    }
+//}

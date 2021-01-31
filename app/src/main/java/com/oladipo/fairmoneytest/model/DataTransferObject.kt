@@ -1,6 +1,7 @@
 package com.oladipo.fairmoneytest.model
 
 import com.oladipo.fairmoneytest.db.DatabaseUsers
+import com.oladipo.fairmoneytest.db.UserDetails
 import com.squareup.moshi.JsonClass
 
 
@@ -18,4 +19,23 @@ fun NetworkUserContainer.asDatabaseModel(): Array<DatabaseUsers>{
             picture = it.picture
         )
     }.toTypedArray()
+}
+
+@JsonClass(generateAdapter = true)
+data class NetworkUserDetailContainer(val detail: Detail)
+
+fun NetworkUserDetailContainer.asDatabaseModel(): UserDetails{
+    return UserDetails(
+        id = detail.id,
+        lastName = detail.lastName,
+        firstName = detail.firstName,
+        email = detail.email,
+        title = detail.title,
+        phone = detail.phone,
+        location = detail.locations,
+        dateOfBirth = detail.dateOfBirth,
+        gender = detail.gender,
+        registerDate = detail.registerDate,
+        picture = detail.picture
+    )
 }

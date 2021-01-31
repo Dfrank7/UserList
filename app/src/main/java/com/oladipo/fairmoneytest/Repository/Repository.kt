@@ -1,15 +1,13 @@
 package com.oladipo.fairmoneytest.Repository
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.oladipo.fairmoneytest.Utils
+import com.google.gson.Gson
 import com.oladipo.fairmoneytest.db.UserDb
+import com.oladipo.fairmoneytest.db.UserDetails
 import com.oladipo.fairmoneytest.db.asDomainModel
-import com.oladipo.fairmoneytest.model.Data
-import com.oladipo.fairmoneytest.model.NetworkUserContainer
-import com.oladipo.fairmoneytest.model.asDatabaseModel
+import com.oladipo.fairmoneytest.model.*
 import com.oladipo.fairmoneytest.network.ApiData
 import com.oladipo.fairmoneytest.network.Client
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +21,26 @@ class Repository(private val database: UserDb, private val context: Context) {
         it.asDomainModel()
     }
 
+    fun getUserDetail(id:String): LiveData<UserDetails>{
+        return database.getUserDb().getUserDetail(id)
+    }
+
+    suspend fun refreshDetailUser(apikey: String, id: String){
+        withContext(Dispatchers.IO){
+            val result = api.getUserDetail(apikey, id)
+            val location = Gson().toJson(result.location)
+            val newResult = Detail(result.id, result.lastName, result.phone, result.dateOfBirth, result.email,
+            location, result.location, result.firstName, result.gender, result.picture, result.registerDate, result.title)
+            val dataContainer = NetworkUserDetailContainer(newResult)
+            database.getUserDb().insertUserDetail(dataContainer.asDatabaseModel())
+
+        }
+    }
+
     suspend fun refreshUsers(apikey: String) {
 
             withContext(Dispatchers.IO) {
-                Log.d("ok", "I made it her")
                 val result = api.getUsers(apikey)
-                Log.d("ok", "I made it hereeee")
                 val data = result.data
                 val dataContainer = NetworkUserContainer(data)
                 database.getUserDb().insertUsers(*dataContainer.asDatabaseModel())
