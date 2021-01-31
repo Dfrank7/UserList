@@ -1,17 +1,26 @@
 package com.oladipo.fairmoneytest.viemodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.util.Log
+import androidx.lifecycle.*
 import com.oladipo.fairmoneytest.Repository.Repository
 import com.oladipo.fairmoneytest.db.UserDb
+import com.oladipo.fairmoneytest.db.UserDetails
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application): AndroidViewModel(application) {
 
     private val database = UserDb.getInstance(application)
 
     private val repository = Repository(database, application.applicationContext)
+
+    lateinit var userDetails: LiveData<UserDetails>
+
+
+
 
 //    init {
 //        viewModelScope.launch {
@@ -20,6 +29,31 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
 //            }
 //        }
 //    }
+
+    fun getUserDetailsFromRemote(apikey:String, id:String){
+        viewModelScope.launch {
+            try {
+                repository.refreshDetailUser(apikey, id)
+            }catch (e:Exception){
+                e.printStackTrace()
+                Log.d("okkkkk", e.localizedMessage+e.message)
+
+            }
+        }
+    }
+
+    fun getUserDetailFromLocal(id: String): LiveData<UserDetails>{
+        viewModelScope.launch {
+            try {
+                userDetails = repository.getUserDetail(id)
+            }catch (e:Exception){
+
+            }
+        }
+        return userDetails
+    }
+
+
 
 
 

@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.oladipo.fairmoneytest.databinding.ListItemBinding
 import com.oladipo.fairmoneytest.model.Data
+import com.oladipo.fairmoneytest.model.User
 import com.squareup.picasso.Picasso
 
-class UserAdapter() : ListAdapter<Data, RecyclerView.ViewHolder>(DataDiffCallback()) {
+class UserAdapter(val clickListener: UserListener) : ListAdapter<Data, RecyclerView.ViewHolder>(DataDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -19,7 +20,7 @@ class UserAdapter() : ListAdapter<Data, RecyclerView.ViewHolder>(DataDiffCallbac
         when(holder) {
             is ViewHolder-> {
                 val data = getItem(position)
-                holder.bind(data)
+                holder.bind(data, clickListener)
             }
         }
     }
@@ -36,8 +37,9 @@ class UserAdapter() : ListAdapter<Data, RecyclerView.ViewHolder>(DataDiffCallbac
     }
 
     class ViewHolder private constructor(val binding: ListItemBinding, val context: Context):RecyclerView.ViewHolder(binding.root){
-        fun bind(data: Data){
+        fun bind(data: Data, listener: UserListener){
             binding.data = data
+            binding.clickListener = listener
             Picasso.with(context).load(data.picture).into(binding.profileImage)
             binding.executePendingBindings()
         }
@@ -49,6 +51,10 @@ class UserAdapter() : ListAdapter<Data, RecyclerView.ViewHolder>(DataDiffCallbac
                 return ViewHolder(binding, parent.context)
             }
         }
+    }
+
+    class UserListener(val clickListener: (userId: Data) -> Unit){
+        fun onClick(user: Data) = clickListener(user)
     }
 
 

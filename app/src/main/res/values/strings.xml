@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FairMoneyTest</string>
+    <string name="loading_error_message">Error Loading Updated Users</string>
 </resources>

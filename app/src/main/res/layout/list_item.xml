@@ -8,7 +8,11 @@
         <variable
             name="data"
             type="com.oladipo.fairmoneytest.model.Data" />
+        <variable
+            name="clickListener"
+            type="com.oladipo.fairmoneytest.adapter.UserAdapter.UserListener" />
     </data>
+
 
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
+            android:onClick="@{() -> clickListener.onClick(data)}"
             card_view:cardBackgroundColor="@color/viewBg"
             card_view:cardCornerRadius="@dimen/card_album_radius">
             <RelativeLayout
