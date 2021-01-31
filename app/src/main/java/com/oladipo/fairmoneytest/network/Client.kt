@@ -1,20 +1,26 @@
 package com.oladipo.fairmoneytest.network
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 class Client {
-    companion object{
 
-        val BASE_URL = "https://dummyapi.io/data/api/"
+    companion object {
 
-        val gson = GsonBuilder().setLenient().create()
+        private val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
         fun getRetrofit(): Retrofit?{
             val interceptor = HttpLoggingInterceptor()
@@ -28,11 +34,12 @@ class Client {
                 .build()
 
             return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .baseUrl(BASE_URL)
                 .client(client)
+                .baseUrl("https://dummyapi.io/data/api/")
                 .build()
         }
     }
+
 }

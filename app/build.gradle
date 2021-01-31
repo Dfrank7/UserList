@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -60,8 +64,27 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
 
+    //Moshi
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //Recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    //cicleImage
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //cardview
+    implementation "androidx.cardview:cardview:1.0.0"
+
     //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
