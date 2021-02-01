@@ -1,10 +1,10 @@
 package com.oladipo.fairmoneytest.viemodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
+import com.oladipo.fairmoneytest.Constants
 import com.oladipo.fairmoneytest.Repository.Repository
-import com.oladipo.fairmoneytest.Utils
+import com.oladipo.fairmoneytest.helper.Utils
 import com.oladipo.fairmoneytest.db.UserDb
 import com.oladipo.fairmoneytest.model.Data
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class MainViewModel(application: Application): AndroidViewModel(application){
         viewModelScope.launch {
             try {
                 _status.value = DummyAPIStatus.LOADING
-                repository.refreshUsers("601507df72565d3b80738ab4")
+                repository.refreshUsers(Constants.apikey)
             }catch (e:Exception){
                 //e.printStackTrace()
                 _status.value = DummyAPIStatus.ERROR

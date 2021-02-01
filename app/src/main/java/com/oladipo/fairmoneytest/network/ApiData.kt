@@ -9,7 +9,7 @@ import retrofit2.http.Path
 
 interface ApiData {
 
-    @GET("user?limit=10")
+    @GET("user")
     suspend fun getUsers(@Header("app-id") app_id: String) : User
 
     @GET("user/{userId}")

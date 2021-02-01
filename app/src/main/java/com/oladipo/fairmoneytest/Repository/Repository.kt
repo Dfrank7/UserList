@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.google.gson.Gson
-import com.oladipo.fairmoneytest.Utils
+import com.oladipo.fairmoneytest.helper.Utils
 import com.oladipo.fairmoneytest.db.UserDb
 import com.oladipo.fairmoneytest.db.UserDetails
 import com.oladipo.fairmoneytest.db.asDomainModel

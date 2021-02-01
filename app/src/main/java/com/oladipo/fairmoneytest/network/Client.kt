@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.oladipo.fairmoneytest.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -37,7 +38,7 @@ class Client {
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(client)
-                .baseUrl("https://dummyapi.io/data/api/")
+                .baseUrl(Constants.BASE_URL)
                 .build()
         }
     }

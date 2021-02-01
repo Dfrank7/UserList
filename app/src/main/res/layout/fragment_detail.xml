@@ -16,7 +16,7 @@
     <ImageView
         android:id="@+id/user_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:adjustViewBounds="true"
         android:contentDescription="string/imagecdesc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +33,8 @@
         app:layout_constraintTop_toBottomOf="@+id/user_image">
 
         <LinearLayout
+            android:id="@+id/detail_layout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -92,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="First Name:"/>
+                    android:text="Gender:"/>
 
                 <TextView
                     android:id="@+id/gender"
@@ -115,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="First Name:"/>
+                    android:text="Phone Number:"/>
 
                 <TextView
                     android:id="@+id/phone"
@@ -137,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="First Name:"/>
+                    android:text="DOB:"/>
 
                 <TextView
                     android:id="@+id/dateOfBirth"
@@ -153,6 +155,17 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/status_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

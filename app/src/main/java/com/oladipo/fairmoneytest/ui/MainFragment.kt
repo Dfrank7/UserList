@@ -1,7 +1,6 @@
 package com.oladipo.fairmoneytest.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.gson.Gson
 import com.oladipo.fairmoneytest.R
-import com.oladipo.fairmoneytest.Utils
+import com.oladipo.fairmoneytest.helper.Utils
 import com.oladipo.fairmoneytest.adapter.UserAdapter
 import com.oladipo.fairmoneytest.databinding.FragmentMainBinding
 import com.oladipo.fairmoneytest.viemodel.MainViewModel
@@ -52,8 +50,23 @@ class MainFragment : Fragment() {
             }
         })
 
+        viewModel.checkInternet.observe(viewLifecycleOwner, Observer {
+            it.let {
+                if (it.equals(false)){
+                    Utils.useSnackBar(requireActivity().findViewById(android.R.id.content),
+                            getString(R.string.internet_error_message))
+                }
+            }
+        })
+
         viewModel.users.observe(viewLifecycleOwner, Observer {
             it?.let {
+                if (it.isNotEmpty()){
+                    binding.statusLoadingWheel.visibility = View.GONE
+                }
+                if (it.isEmpty() && !Utils.isConnectionAvailable(requireContext())){
+                    Utils.useSnackBar(requireActivity().findViewById(android.R.id.content),getString(R.string.no_user_message))
+                }
                 adapter.submitList(it)
             }
         })
@@ -68,6 +81,7 @@ class MainFragment : Fragment() {
         return binding.root
 
     }
+
 
 
 }

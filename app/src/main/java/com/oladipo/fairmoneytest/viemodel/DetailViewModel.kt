@@ -20,8 +20,6 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
     lateinit var userDetails: LiveData<UserDetails>
 
 
-
-
 //    init {
 //        viewModelScope.launch {
 //            try {
@@ -47,15 +45,12 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
             try {
                 userDetails = repository.getUserDetail(id)
             }catch (e:Exception){
-
+                e.printStackTrace()
+                Log.d("okkkkk", e.localizedMessage+e.message)
             }
         }
         return userDetails
     }
-
-
-
-
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
