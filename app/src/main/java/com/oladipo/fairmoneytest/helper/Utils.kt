@@ -17,7 +17,7 @@ class Utils{
         }
 
         fun useSnackBar(view: View, message: String){
-            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
         }
 
         fun toastMessage(context: Context, message: String){

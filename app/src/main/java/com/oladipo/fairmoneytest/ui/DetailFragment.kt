@@ -1,6 +1,7 @@
 package com.oladipo.fairmoneytest.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,18 @@ class DetailFragment: Fragment() {
                     Utils.toastMessage(requireContext(), getString(R.string.no_user_detail_error))
                 }
             })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when (it) {
+                    DetailViewModel.DummyAPIStatus.ERROR -> {
+                        binding.statusLoading.visibility = View.GONE
+                        Utils.useSnackBar(requireActivity().findViewById(android.R.id.content),
+                                getString(R.string.loading_error_user_message))
+                    }
+                }
+            }
+        })
 
         return binding.root
     }
