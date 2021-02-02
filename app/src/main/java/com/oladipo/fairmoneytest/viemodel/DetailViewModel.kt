@@ -6,9 +6,6 @@ import androidx.lifecycle.*
 import com.oladipo.fairmoneytest.Repository.Repository
 import com.oladipo.fairmoneytest.db.UserDb
 import com.oladipo.fairmoneytest.db.UserDetails
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application): AndroidViewModel(application) {
@@ -18,6 +15,9 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
     private val repository = Repository(database, application.applicationContext)
 
     lateinit var userDetails: LiveData<UserDetails>
+
+    private val _status = MutableLiveData<DummyAPIStatus>()
+    val status: LiveData<DummyAPIStatus> get() = _status
 
 
 //    init {
@@ -31,11 +31,14 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
     fun getUserDetailsFromRemote(apikey:String, id:String){
         viewModelScope.launch {
             try {
+                _status.value = DummyAPIStatus.LOADING
                 repository.refreshDetailUser(apikey, id)
             }catch (e:Exception){
                 e.printStackTrace()
+                _status.value = DummyAPIStatus.ERROR
                 Log.d("okkkkk", e.localizedMessage+e.message)
-
+            }finally {
+                _status.value = DummyAPIStatus.DONE
             }
         }
     }
@@ -50,6 +53,12 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
             }
         }
         return userDetails
+    }
+
+    enum class DummyAPIStatus {
+        LOADING,
+        ERROR,
+        DONE
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

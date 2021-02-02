@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FairMoneyTest</string>
     <string name="loading_error_message">Error Loading Updated Users</string>
+    <string name="loading_error_user_message">Error Loading User Detail</string>
     <string name="internet_error_message">No Internet Connection</string>
     <string name="no_user_message">No User Yet</string>
     <string name="no_user_detail_error">Oooops, Error fetching detail</string>

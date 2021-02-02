@@ -43,9 +43,11 @@ class MainFragment : Fragment() {
                         binding.statusLoadingWheel.visibility = View.VISIBLE
                     MainViewModel.DummyAPIStatus.DONE ->
                         binding.statusLoadingWheel.visibility = View.GONE
-                    MainViewModel.DummyAPIStatus.ERROR ->
+                    MainViewModel.DummyAPIStatus.ERROR -> {
+                        binding.statusLoadingWheel.visibility = View.GONE
                         Utils.useSnackBar(requireActivity().findViewById(android.R.id.content),
                             getString(R.string.loading_error_message))
+                    }
                 }
             }
         })
