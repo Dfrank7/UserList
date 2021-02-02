@@ -1,0 +1,17 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@0.2.1
+
+jobs:
+  build:
+    executor: android/android
+
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: ./gradlew build
+      - run:
+          name: Run Unit Tests
+          command: ./gradlew :app:testDebugUnitTest --no-daemon
