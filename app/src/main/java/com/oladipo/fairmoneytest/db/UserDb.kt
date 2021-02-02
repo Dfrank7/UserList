@@ -25,7 +25,9 @@ abstract class UserDb : RoomDatabase(){
             synchronized(this) {
 
                 val instance = Room.databaseBuilder(context.applicationContext,
-                    UserDb::class.java, "users_db").build()
+                    UserDb::class.java, "users_db")
+                    .allowMainThreadQueries()
+                    .build()
 
                 INSTANCE = instance
 

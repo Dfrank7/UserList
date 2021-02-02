@@ -1,4 +1,4 @@
-package com.oladipo.fairmoneytest
+package com.oladipo.fairmoneytest.helper
 
 object Constants {
     const val BASE_URL = "https://dummyapi.io/data/api/"

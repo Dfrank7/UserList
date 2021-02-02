@@ -16,7 +16,7 @@ interface UserDao {
     fun insertUsers(vararg users: DatabaseUsers )
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserDetail(vararg details: UserDetails)
+    suspend fun insertUserDetail(vararg details: UserDetails)
 
     @Query("select * from UserDetails where id = :id")
     fun getUserDetail(id: String): LiveData<UserDetails>

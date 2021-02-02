@@ -2,7 +2,7 @@ package com.oladipo.fairmoneytest.viemodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.oladipo.fairmoneytest.Constants
+import com.oladipo.fairmoneytest.helper.Constants
 import com.oladipo.fairmoneytest.Repository.Repository
 import com.oladipo.fairmoneytest.helper.Utils
 import com.oladipo.fairmoneytest.db.UserDb
@@ -52,8 +52,6 @@ class MainViewModel(application: Application): AndroidViewModel(application){
     fun onUserCompleteNavigation(){
         _navigateToDetails.value = null
     }
-
-
 
     enum class DummyAPIStatus {
         LOADING,
